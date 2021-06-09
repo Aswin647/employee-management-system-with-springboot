@@ -1,0 +1,189 @@
+// below are the code of dao interface//
+
+package Employeecrud.DAO;
+
+import java.util.List;
+
+import Employeecrud.entity.Employee;
+
+public interface EmployeeDAO {
+
+
+public List<Employee> getall();
+
+public Employee GetById(int theId);
+	
+public void Save(Employee theEmployee);
+
+public void DeleteById(int theId);
+}
+
+
+
+// below are the code of dao implementation (implementation technique-> hibernate api)
+
+
+public class EmployeeDAOimpl implements EmployeeDAO {
+
+
+
+private EntityManager entitymanager;
+	
+
+@Autowired
+public EmployeeDAOimpl(EntityManager theEntityManager) {
+	
+	entitymanager=theEntityManager;
+	
+}
+	
+	@Override
+	
+	public List<Employee> getall() {
+		
+	
+		
+	Session currentSession=	entitymanager.unwrap(Session.class);
+			
+	
+			
+	Query<Employee> theQuery= currentSession.createQuery("from Employee", Employee.class);	
+		
+	
+	
+	
+	List<Employee> employees = theQuery.getResultList();
+		return employees;
+	}
+
+	@Override
+	public Employee GetById(int theId) {
+			
+	
+			
+	Session currentSession=	entitymanager.unwrap(Session.class);
+	
+	
+	Employee theemployee=currentSession.get(Employee.class, theId);
+	
+	
+	
+		return theemployee ;
+		
+		
+	}
+
+	@Override
+	public void Save(Employee theEmployee) {
+		
+	
+			
+	Session currentSession=	entitymanager.unwrap(Session.class);
+	
+
+	
+	currentSession.saveOrUpdate(theEmployee);
+	}
+
+	@Override
+	public void DeleteById(int theId) {
+
+		
+		Session currentSession = entitymanager.unwrap(Session.class);
+				
+		
+		Query theQuery = 
+				currentSession.createQuery(
+						"delete from Employee where id=:employeeId");
+		theQuery.setParameter("employeeId", theId);
+		
+		theQuery.executeUpdate();
+		
+	}
+
+}
+
+
+// below are also the dao implementation with implementation technique of jpa api)//
+
+
+package Employeecrud.DAO;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import Employeecrud.entity.Employee;
+
+public class EmployeeDAOimplJPA implements EmployeeDAO {
+	
+	private EntityManager entityManager;
+	
+	@Autowired
+	public EmployeeDAOimplJPA(EntityManager theEntityManager) {
+            entityManager= theEntityManager;
+	}
+	
+	@Override
+	public List<Employee> getall() {
+	
+		
+		
+
+		
+		Query theQuery = 
+				entityManager.createQuery("from Employee");
+	
+	
+		List<Employee> employees = theQuery.getResultList();
+		
+	
+		return employees;
+	}
+
+	@Override
+	public Employee GetById(int theId) {
+	
+	
+				Employee theEmployee = 
+						entityManager.find(Employee.class, theId);
+				
+		
+				return theEmployee;
+	}
+
+	@Override
+	public void Save(Employee theEmployee) {
+
+		
+				Employee dbEmployee = entityManager.merge(theEmployee);
+				
+				
+				theEmployee.setId(dbEmployee.getId());
+		
+		
+	}
+
+	@Override
+	public void DeleteById(int theId) {
+	
+
+		
+		Query theQuery = entityManager.createQuery(
+							"delete from Employee where id=:employeeId");
+		
+		theQuery.setParameter("employeeId", theId);
+		
+		theQuery.executeUpdate();
+	}
+
+	
+	
+}
+
+
+
+

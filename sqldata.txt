@@ -1,0 +1,28 @@
+
+
+CREATE DATABASE  IF NOT EXISTS `employee_directory`;
+USE `spring_security_demo_plaintext`;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `employee`;
+CREATE TABLE `employee` (
+  `id`int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name`varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+--
+-- Inserting data for table `employee`
+--
+
+INSERT INTO `employee` 
+VALUES 
+(1,'aswin','khatiwada','aswinkhatiwada@gmail.com'),
+(2,'aashbin','khatiwada','aswin.khatiwada1@gmail.com');
+
+
+

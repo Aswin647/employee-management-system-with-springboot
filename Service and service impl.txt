@@ -1,0 +1,77 @@
+// below are the code of interface service//
+
+package Employee.Service;
+
+import java.util.List;
+
+import Employeecrud.entity.Employee;
+
+public interface EmployeeService {
+	
+public List<Employee> getall();
+	
+	public Employee GetById(int theId);
+	
+	public void Save(Employee theEmployee);
+	
+	public void DeleteById(int theId);
+
+	
+}
+
+
+// below are the code of service implementation//
+
+package Employee.Service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import Employeecrud.DAO.EmployeeDAO;
+import Employeecrud.entity.Employee;
+
+@Service
+public class EmployeeServiceimpl implements EmployeeService {
+	
+private EmployeeDAO employeedao;
+
+@Autowired
+public EmployeeServiceimpl(@Qualifier("EmployeeDAOimplJPA")EmployeeDAO theEmployeeDAO) {
+
+      employeedao=theEmployeeDAO;
+}
+
+
+	@Override
+	@Transactional
+	public List<Employee> getall() {
+		
+		return employeedao.getall();
+	}
+    
+	@Override
+	@Transactional
+	public Employee GetById(int theId) {
+		
+	return employeedao.GetById(theId);
+	}
+
+	@Override
+	@Transactional
+	public void Save(Employee theEmployee) {
+		employeedao.Save(theEmployee);
+	}
+
+	@Override
+	@Transactional
+	public void DeleteById(int theId) {
+		employeedao.DeleteById(theId);
+	}
+
+}
+
+
