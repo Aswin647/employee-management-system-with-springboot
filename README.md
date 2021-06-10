@@ -2,7 +2,7 @@
 
 PROJECT NAME: EMPLOYEE MANAGEMENT SYSTEM( REST API CRUD PROJECTS)
 
-DESCRIPTION: This is the project name employee management system developed by me featuring the basic CRUD implementation. In this project we can get all the list of cutomer as well as we can get the customer by one by one by its id as well as we can add , update and delete the customer.
+DESCRIPTION: This is the project name employee management system developed by me featuring the basic CRUD implementation. In this project we can get all the list of employee as well as we can  read or get the employee by one by one by its id as well as we can add , update and delete the employee.
 
 SERVER USE: TOMCAT, apache
 
